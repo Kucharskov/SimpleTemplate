@@ -77,7 +77,7 @@ class SimpleTemplate
      */
     public static function renderView(string $view = 'default')
     {
-        if(self::$_html[$view] === "") throw new Exception("SimpleTemplate error: HTML not loaded!");
+        if(!isset(self::$_html[$view])) throw new Exception("SimpleTemplate error: HTML not loaded for {$view} view!");
         else
         {
             $keys = array_keys(self::$_marks[$view]);
