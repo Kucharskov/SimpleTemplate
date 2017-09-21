@@ -48,8 +48,8 @@ class SimpleTemplate
      */
     public static function loadMark(string $mark, string $value, string $view = 'default')
     {
-        if(!isset(self::$_marks[$view])) self::$_marks[$view] = array($mark => $value);
-        else self::$_marks[$view] = array_merge(self::$_marks[$view], array($mark => $value));
+        if(!isset(self::$_marks[$view])) self::$_marks[$view] = [$mark => $value];
+        else self::$_marks[$view] = array_merge(self::$_marks[$view], [$mark => $value]);
     }
 
     /**
