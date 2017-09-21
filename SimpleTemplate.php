@@ -14,8 +14,8 @@
 
 class SimpleTemplate
 {
-    public static $_html;
-    public static $_marks;
+    private static $_html;
+    private static $_marks;
 
     /**
      * @param $file
