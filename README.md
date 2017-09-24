@@ -10,3 +10,5 @@
  * ***clearMarks($widok)*** czyści listę znaczników i ich wartości dla widoku
  * ***renderView($widok, $clear)*** zwraca widok HTML z podmienionymi znacznikami na wartości ($clear ustawione na true usuwa niepodmienione znaczniki)
  * ***debugView($widok)*** zwraca tablicę debugową z informacjami na temat danego widoku
+ 
+ Domyślny widok to "default", którego nazwy nie trzeba wpisywać (ustawiony na wartość domyślną)
