@@ -8,7 +8,7 @@ include "SimpleTemplate.php";
 
 //Załadowanie szablonu
 SimpleTemplate::loadHTML("templates/main.html");
-SimpleTemplate::loadHTML("templates/box.html", "box");
+SimpleTemplate::loadHTMLstring("<div class=\"box\"><h2>{header}</h2><p>{content}</p></div>", "box");
 
 //Załadowanie znacznika
 SimpleTemplate::loadMark("title", "SimpleTemplate w akcji!");
