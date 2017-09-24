@@ -30,6 +30,17 @@ class SimpleTemplate
     }
 
     /**
+     * @param string $string
+     * @param string $view
+     *
+     * Funkcja ustawia podany string jako kod HTML dla widoku
+     */
+    public static function loadHTMLstring(string $string, string $view = 'default')
+    {
+        self::$_html[$view] = $string;
+    }
+
+    /**
      * @param string $view
      *
      * Funkcja czyści kod HTML widoku
