@@ -86,4 +86,22 @@ class SimpleTemplate
             return str_replace($keys, array_values(self::$_marks[$view]), self::$_html[$view]);
         }
     }
+
+    /**
+     * @param string $view
+     * @return array
+     *
+     * Funkcja zwraca tablicę debugową z informacjami na temat danego widoku:
+     *   - loadedHTML - czy załadowano do widoku kod HTML (true/false)
+     *   - loadedMarks - czy załadowano do widoku jakiekolwiek znaczniki do podmiany (true/false)
+     *   - marksList - lista znaczników do podmiany w widoku (array/null)
+     */
+    public static function debugView(string $view = 'default')
+    {
+        return [
+            "loadedHTML" => isset(self::$_html[$view]),
+            "loadedMarks" => isset(self::$_marks[$view]),
+            "marksList" =>  isset(self::$_marks[$view]) ? array_keys(self::$_marks[$view]) : null
+        ];
+    }
 }
