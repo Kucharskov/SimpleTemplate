@@ -85,6 +85,7 @@ class SimpleTemplate
 
     /*
      * Funkcja generuje widok podmieniając w kodzie HTML znaczniki na odpowiadające im wartości
+     * Ustawienie parametru $clear na true powoduje usunięcie niepodmienionych znaczników z kodu HTML
      */
     public static function renderView(string $view = 'default', bool $clear = false)
     {
