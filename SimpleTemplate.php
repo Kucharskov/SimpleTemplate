@@ -86,7 +86,7 @@ class SimpleTemplate
     /*
      * Funkcja generuje widok podmieniając w kodzie HTML znaczniki na odpowiadające im wartości
      */
-    public static function renderView(string $view = 'default')
+    public static function renderView(string $view = 'default', bool $clear = false)
     {
         if(!isset(self::$_html[$view])) throw new Exception("SimpleTemplate error: HTML not loaded for {$view} view!");
         else
@@ -94,7 +94,8 @@ class SimpleTemplate
             $keys = array_keys(self::$_marks[$view]);
             foreach ($keys as &$key)
                 $key = "{" . $key . "}";
-            return str_replace($keys, array_values(self::$_marks[$view]), self::$_html[$view]);
+            $html = str_replace($keys, array_values(self::$_marks[$view]), self::$_html[$view]);
+            return ($clear) ? preg_replace('/\{+[a-zA-Z0-9]+\}/s', '', $html) : $html;
         }
     }
 

@@ -8,5 +8,5 @@
  * ***loadMark($znacznik, $wartość, $widok)*** ustawia wartosc dla danego znacznika dla widoku
  * ***loadMarks($znaczniki, $widok)*** ustawia tablice (znacznik => wartość) dla widoku
  * ***clearMarks($widok)*** czyści listę znaczników i ich wartości dla widoku
- * ***renderView($widok)*** zwraca widok HTML z podmienionymi znacznikami na wartości
+ * ***renderView($widok, $clear)*** zwraca widok HTML z podmienionymi znacznikami na wartości ($clear ustawione na true usuwa niepodmienione znaczniki)
  * ***debugView($widok)*** zwraca tablicę debugową z informacjami na temat danego widoku
