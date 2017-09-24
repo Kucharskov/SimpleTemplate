@@ -47,7 +47,7 @@ class SimpleTemplate
      */
     public static function clearHTML(string $view = 'default')
     {
-        self::$_html[$view] = "";
+        self::$_html[$view] = '';
     }
 
     /**
@@ -93,7 +93,7 @@ class SimpleTemplate
         {
             $keys = array_keys(self::$_marks[$view]);
             foreach ($keys as &$key)
-                $key = "{" . $key . "}";
+                $key = "{{$key}}";
             $html = str_replace($keys, array_values(self::$_marks[$view]), self::$_html[$view]);
             return ($clear) ? preg_replace('/\{+[a-zA-Z0-9]+\}/s', '', $html) : $html;
         }
@@ -111,9 +111,9 @@ class SimpleTemplate
     public static function debugView(string $view = 'default')
     {
         return [
-            "loadedHTML" => isset(self::$_html[$view]),
-            "loadedMarks" => isset(self::$_marks[$view]),
-            "marksList" =>  isset(self::$_marks[$view]) ? array_keys(self::$_marks[$view]) : null
+            'loadedHTML' => isset(self::$_html[$view]),
+            'loadedMarks' => isset(self::$_marks[$view]),
+            'marksList' =>  isset(self::$_marks[$view]) ? array_keys(self::$_marks[$view]) : null
         ];
     }
 }
