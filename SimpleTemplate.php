@@ -1,7 +1,7 @@
 <?php
 /***************************************************************************
  *
- *	SimpleTemplate v1.0
+ *	SimpleTemplate v2.0
  *	with love by M. Kucharskov (http://kucharskov.pl)
  *
  *	This is free software and it's distributed under Creative Commons BY-NC-SA License.
@@ -12,90 +12,80 @@
  *
  ***************************************************************************/
 
-class SimpleTemplate
-{
-    private static $_html;
-    private static $_marks;
-
+class SimpleTemplate {
+    private $_html;
+    private $_marks;
+	
     /**
      * @param $file
-     * @param string $view
      *
      * Funkcja pobiera z pliku HTML zawartość dla widoku
      */
-    public static function loadHTML($file, string $view = 'default')
-    {
+    public function loadHTML($file) {
         if(file_exists($file))
-            self::$_html[$view] = file_get_contents($file);
+            $this->_html = file_get_contents($file);
     }
 
     /**
      * @param string $string
-     * @param string $view
      *
      * Funkcja ustawia podany string jako kod HTML dla widoku
      */
-    public static function loadHTMLstring(string $string, string $view = 'default')
-    {
-        self::$_html[$view] = $string;
+    public function loadHTMLstring(string $string) {
+        $this->_html = $string;
     }
 
     /**
-     * @param string $view
      *
      * Funkcja czyści kod HTML widoku
      */
-    public static function clearHTML(string $view = 'default')
-    {
-        self::$_html[$view] = '';
+    public function clearHTML() {
+        $this->_html = '';
     }
 
     /**
      * @param string $mark
      * @param $value
-     * @param string $view
      *
      * Funkcja ustala znacznik i jego wartość dla widoku
      */
-    public static function loadMark(string $mark, string $value, string $view = 'default')
-    {
-        if(!isset(self::$_marks[$view])) self::$_marks[$view] = [$mark => $value];
-        else self::$_marks[$view] = array_merge(self::$_marks[$view], [$mark => $value]);
+    public function loadMark(string $mark, string $value) {
+        if(!isset($this->_marks))
+			$this->_marks = [$mark => $value];
+        else
+			$this->_marks = array_merge($this->_marks, [$mark => $value]);
     }
 
     /**
      * @param array $marks
-     * @param string $view
      *
      * Funkcja ustala znaczniki dla widoku z array'a
      */
-    public static function loadMarks(array $marks, string $view = 'default')
-    {
-        if(!isset(self::$_marks[$view])) self::$_marks[$view] = $marks;
-        else self::$_marks[$view] = array_merge(self::$_marks[$view], $marks);
+    public function loadMarks(array $marks) {
+        if(!isset($this->_marks))
+			$this->_marks = $marks;
+        else
+			$this->_marks = array_merge($this->_marks, $marks);
     }
 
     /*
      * Funkcja czyści znaczniki z wartościami dla widoku
      */
-    public static function clearMarks(string $view = 'default')
-    {
-        self::$_marks[$view] = [];
+    public function clearMarks() {
+        $this->_marks = [];
     }
 
     /*
      * Funkcja generuje widok podmieniając w kodzie HTML znaczniki na odpowiadające im wartości
      * Ustawienie parametru $clear na true powoduje usunięcie niepodmienionych znaczników z kodu HTML
      */
-    public static function renderView(string $view = 'default', bool $clear = false)
-    {
-        if(!isset(self::$_html[$view])) throw new Exception("SimpleTemplate error: HTML not loaded for {$view} view!");
-        else
-        {
-            $keys = array_keys(self::$_marks[$view]);
+    public function renderView(bool $clear = false) {
+        if(!isset($this->_html)) throw new Exception("SimpleTemplate error: HTML not loaded for {$view} view!");
+        else {
+            $keys = array_keys($this->_marks);
             foreach ($keys as &$key)
                 $key = "{{$key}}";
-            $html = str_replace($keys, array_values(self::$_marks[$view]), self::$_html[$view]);
+            $html = str_replace($keys, array_values($this->_marks), $this->_html);
             return ($clear) ? preg_replace('/\{+[a-zA-Z0-9]+\}/s', '', $html) : $html;
         }
     }
@@ -109,12 +99,11 @@ class SimpleTemplate
      *   - loadedMarks - czy załadowano do widoku jakiekolwiek znaczniki do podmiany (true/false)
      *   - marksList - lista znaczników do podmiany w widoku (array/null)
      */
-    public static function debugView(string $view = 'default')
-    {
+    public function debugView() {
         return [
-            'loadedHTML' => isset(self::$_html[$view]),
-            'loadedMarks' => isset(self::$_marks[$view]),
-            'marksList' =>  isset(self::$_marks[$view]) ? array_keys(self::$_marks[$view]) : null
+            'loadedHTML' => isset($this->_html),
+            'loadedMarks' => isset($this->_marks),
+            'marksList' => isset($this->_marks) ? array_keys($this->_marks) : null
         ];
     }
 }
